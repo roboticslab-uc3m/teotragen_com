@@ -1,0 +1,4 @@
+# TEOTraGen Parameters
+
+# Port where teotragen_port node will listen TEOTraGen trajectories
+teotragen_com_port: 3552

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>teotragen_com</name>
+  <version>0.0.1</version>
+  <description> teotragen_com package
+    This package contains the ROS nodes that allows the visualization of TEO trajectories generated in TEOTraGen MATLAB(R) application.
+
+    RoboticsLab, University Carlos III of Madrid
+  </description>
+
+  <maintainer email="mingo.esteban@gmail.com">Domingo Esteban</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/teotragen_com</url>
+  <url type="website">http://roboticslab.uc3m.es</url>
+
+  <author email="mingo.esteban@gmail.com">Domingo Esteban</author>
+
+
+  <!-- Use buildtool_depend for build tool packages: -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>
