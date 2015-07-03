@@ -34,6 +34,7 @@ Leganes, Madrid, Spain, 2014
 // ROS header files
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
 #include "teo_msgs/SupportFoot.h"
 
@@ -94,6 +95,23 @@ int main(int argc, char **argv)
   // PUBLISHER
   ros::Publisher configuration_to_ROS = n.advertise<sensor_msgs::JointState>("joint_states", 1);
   ros::Publisher support_foot_to_ROS = n.advertise<teo_msgs::SupportFoot>("support_foot", 1);
+
+  ros::Publisher joint0_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/r_hip_yaw_position_controller/command", 1);
+  ros::Publisher joint1_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/r_hip_roll_position_controller/command", 1);
+  ros::Publisher joint2_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/r_hip_pitch_position_controller/command", 1);
+  ros::Publisher joint3_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/r_knee_pitch_position_controller/command", 1);
+  ros::Publisher joint4_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/r_ankle_pitch_position_controller/command", 1);
+  ros::Publisher joint5_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/r_ankle_roll_position_controller/command", 1);
+  ros::Publisher joint6_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/l_hip_yaw_position_controller/command", 1);
+  ros::Publisher joint7_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/l_hip_roll_position_controller/command", 1);
+  ros::Publisher joint8_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/l_hip_pitch_position_controller/command", 1);
+  ros::Publisher joint9_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/l_knee_pitch_position_controller/command", 1);
+  ros::Publisher joint10_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/l_ankle_pitch_position_controller/command", 1);
+  ros::Publisher joint11_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/l_ankle_roll_position_controller/command", 1);
+  ros::Publisher joint12_command_to_ROS = n.advertise<std_msgs::Float64>("/teo/waist_yaw_position_controller/command", 1);
+
+  std_msgs::Float64 joint_command;
+
 
 
 /*
@@ -163,6 +181,40 @@ int main(int argc, char **argv)
         ROS_WARN("Comunication with TEOTraGen lost... \n");
         close(client_sockfd);
         client_sockfd=-1;
+
+        // Temporal
+
+        usleep(2000000); // Wait 2 s
+        joint_command.data = 0;
+        for (int ii=0; ii<14; ii++) {
+            joint0_command_to_ROS.publish(joint_command);
+
+            joint1_command_to_ROS.publish(joint_command);
+
+            joint2_command_to_ROS.publish(joint_command);
+
+            joint3_command_to_ROS.publish(joint_command);
+
+            joint4_command_to_ROS.publish(joint_command);
+
+            joint5_command_to_ROS.publish(joint_command);
+
+            joint6_command_to_ROS.publish(joint_command);
+
+            joint7_command_to_ROS.publish(joint_command);
+
+            joint8_command_to_ROS.publish(joint_command);
+
+            joint9_command_to_ROS.publish(joint_command);
+
+            joint10_command_to_ROS.publish(joint_command);
+
+            joint11_command_to_ROS.publish(joint_command);
+
+            joint12_command_to_ROS.publish(joint_command);
+        }
+
+
       }
       else {
         num_config_received += 1;
@@ -183,42 +235,55 @@ int main(int argc, char **argv)
           switch (ii) {
             case 0:
               joints_to_send.name.push_back("r_hip_yaw");
+              joint0_command_to_ROS.publish(joint_command);
               break;
             case 1:
               joints_to_send.name.push_back("r_hip_roll");
+              joint1_command_to_ROS.publish(joint_command);
               break;
             case 2:
               joints_to_send.name.push_back("r_hip_pitch");
+              joint2_command_to_ROS.publish(joint_command);
               break;
             case 3:
               joints_to_send.name.push_back("r_knee_pitch");
+              joint3_command_to_ROS.publish(joint_command);
               break;
             case 4:
               joints_to_send.name.push_back("r_ankle_pitch");
+              joint4_command_to_ROS.publish(joint_command);
               break;
             case 5:
               joints_to_send.name.push_back("r_ankle_roll");
+              joint5_command_to_ROS.publish(joint_command);
               break;
             case 6:
               joints_to_send.name.push_back("l_hip_yaw");
+              joint6_command_to_ROS.publish(joint_command);
               break;
             case 7:
               joints_to_send.name.push_back("l_hip_roll");
+              joint7_command_to_ROS.publish(joint_command);
               break;
             case 8:
               joints_to_send.name.push_back("l_hip_pitch");
+              joint8_command_to_ROS.publish(joint_command);
               break;
             case 9:
               joints_to_send.name.push_back("l_knee_pitch");
+              joint9_command_to_ROS.publish(joint_command);
               break;
             case 10:
               joints_to_send.name.push_back("l_ankle_pitch");
+              joint10_command_to_ROS.publish(joint_command);
               break;
             case 11:
               joints_to_send.name.push_back("l_ankle_roll");
+              joint11_command_to_ROS.publish(joint_command);
               break;
             case 12:
               joints_to_send.name.push_back("waist_yaw");
+              joint12_command_to_ROS.publish(joint_command);
               break;
             case 13:
               joints_to_send.name.push_back("waist_pitch");
@@ -269,8 +334,9 @@ int main(int argc, char **argv)
         support_foot_to_send.support_foot = TEO_joints.support_foot;
 
         // Publish to the ROS Topics
-				configuration_to_ROS.publish(joints_to_send);
-				support_foot_to_ROS.publish(support_foot_to_send);
+        configuration_to_ROS.publish(joints_to_send);
+        support_foot_to_ROS.publish(support_foot_to_send);
+
       }
     }
 

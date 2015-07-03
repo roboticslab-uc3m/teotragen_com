@@ -99,6 +99,7 @@ catkin_package(
 
 ## Declare a cpp executable
 add_executable(teotragen_com src/teotragen_com.cpp)
+add_executable(teotragen_com_gazebo src/teotragen_com_gazebo.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -106,6 +107,10 @@ add_executable(teotragen_com src/teotragen_com.cpp)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(teotragen_com
+   ${catkin_LIBRARIES}
+ )
+
+ target_link_libraries(teotragen_com_gazebo
    ${catkin_LIBRARIES}
  )
 

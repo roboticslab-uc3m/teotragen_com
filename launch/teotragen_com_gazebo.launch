@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- 
+  This file launches one node:
+    - TEOTraGen_com that allows the communication with TEOTraGen MATLAB(R) application
+-->
+<launch>
+	<rosparam command="load" file="$(find teotragen_com)/config/teotragen_parameters.yaml" />
+
+	<node name= "TEOTRAGEN_com_gazebo" pkg="teotragen_com" type="teotragen_com_gazebo" output="screen"/>
+</launch>
